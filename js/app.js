@@ -1,7 +1,21 @@
 /*
  * Create a list that holds all of your cards
  */
+ 
+ document.querySelector(".restart").addEventListener("click", function(){
+	 document.querySelector(".moves").innerText = "0";
+	let cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+	cards = shuffle(cards);
+	const deck = document.querySelector(".deck");
+	for (let i = 0; i < cards.length; i++) {
+		deck.appendChild(cards[i]);
+	}
+ });
+ 
 
+
+
+ 
 
 /*
  * Display the cards on the page
