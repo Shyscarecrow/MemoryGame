@@ -1,7 +1,8 @@
  let ready = true; 
  let card1 = '';
- let card1Parent = '';
  let card2 = '';
+ let card1Parent = '';
+ let card2Parent = '';
  
  document.querySelector(".restart").addEventListener("click", restart);
  document.querySelector(".deck").addEventListener("click", timerStart);
@@ -9,20 +10,23 @@
  
  function cardOpen(evt) {
 	if (evt.target.className == "card") {
-		evt.target.className += " open show";
-		document.querySelector(".moves").innerText = +document.querySelector(".moves").innerText + 1;		
+		evt.target.className += " open show";		
 		if (!card1) {
 			card1 = evt.target.firstElementChild.className;
 			card1Parent = evt.target;
 		} else {
+			document.querySelector(".moves").innerText = +document.querySelector(".moves").innerText + 1;
 			card2 = evt.target.firstElementChild.className;
+			card2Parent = evt.target;
 			if (card1 ==card2) {
-				console.log(true);
+				card1Parent.className = "card open show match";
+				card2Parent.className = "card open show match";
 				card1 = '';
-				card2 = ''
+				card2 = '';
+				win();
 			} else {
-				setTimeout(function() {evt.target.className = "card close"; card1Parent.className = "card close"}, 1000);
-				setTimeout(function() {evt.target.className = "card"; card1Parent.className = "card"; card1 = ''; card2 = ''}, 1200);
+				setTimeout(function() {evt.target.className = "card close"; card1Parent.className = "card close"}, 700);
+				setTimeout(function() {evt.target.className = "card"; card1Parent.className = "card"; card1 = ''; card2 = ''}, 900);
 			}
 		}	
 		
@@ -80,13 +84,16 @@ function timerStart(){
 	}
 }
 
-function timeReset() {
+function timerReset() {
 	clearTimeout;
 }
 
-
-
- 
+function win() {
+	var matchingCards = document.getElementsByClassName('card match open show');
+	if (matchingCards.length == 16) {
+		setTimeout (function() {alert("You win!")}, 1000);
+	}
+}
 
 
 
