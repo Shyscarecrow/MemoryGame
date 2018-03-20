@@ -1,4 +1,5 @@
  let ready = true; 
+ /*The first and the second card of each opened pair */
  let card1 = '';
  let card2 = '';
  let card1Parent = '';
@@ -7,15 +8,20 @@
  document.querySelector(".restart").addEventListener("click", restart);
  document.querySelector(".deck").addEventListener("click", timerStart);
  document.querySelector(".deck").addEventListener("click", cardOpen);
+ document.querySelector(".playAgain").addEventListener("click", function(){document.querySelector(".winPage").className = "winPage closed"; restart()});
  
  function cardOpen(evt) {
 	if (evt.target.className == "card") {
-		evt.target.className += " open show";		
+		evt.target.className += " open show";			
 		if (!card1) {
 			card1 = evt.target.firstElementChild.className;
 			card1Parent = evt.target;
 		} else {
 			document.querySelector(".moves").innerText = +document.querySelector(".moves").innerText + 1;
+			/* Hide stars depend of moves count*/
+			if (document.querySelector(".moves").innerText == '12' || document.querySelector(".moves").innerText == '18') {
+				document.querySelector(".fa-star").parentNode.removeChild(document.querySelector(".fa-star"));
+			}
 			card2 = evt.target.firstElementChild.className;
 			card2Parent = evt.target;
 			if (card1 ==card2) {
@@ -35,9 +41,20 @@
 	}
 }
 
+/* Return stars back to amount of 3 */
+
+function returnStars(){
+	while (document.getElementsByClassName("fa-star").length != 3) {
+		var newStar = document.createElement("li");
+		newStar.className = "fa fa-star";
+		document.querySelector(".stars").appendChild(newStar);
+	}
+}
+
  function restart() {
 	document.querySelector(".moves").innerText = "0";
-	//document.querySelector('#timer').innerHTML = "0" + ':' + "0" + ':' + "0";
+    document.querySelector('#timer').innerHTML = "00:00:00";
+	returnStars();
 	
 	let cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
 	cards = shuffle(cards);
@@ -84,14 +101,13 @@ function timerStart(){
 	}
 }
 
-function timerReset() {
-	clearTimeout;
-}
 
 function win() {
+	document.querySelector(".movesCount").innerText = document.querySelector(".moves").innerText;
+	document.querySelector(".starsCount").innerText = document.getElementsByClassName("fa-star").length;
 	var matchingCards = document.getElementsByClassName('card match open show');
 	if (matchingCards.length == 16) {
-		setTimeout (function() {alert("You win!")}, 1000);
+		setTimeout (function() {document.querySelector(".winPage").className = "winPage"}, 1000);
 	}
 }
 
@@ -103,13 +119,3 @@ function win() {
 
 
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
