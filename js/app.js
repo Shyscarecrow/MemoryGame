@@ -4,9 +4,10 @@
  let card2 = '';
  let card1Parent = '';
  let card2Parent = '';
+ let stopTimer = false;
  
  document.querySelector(".restart").addEventListener("click", restart);
- document.querySelector(".deck").addEventListener("click", timerStart);
+ document.querySelector(".deck").addEventListener("click", function() {stopTimer = false; timerStart()});
  document.querySelector(".deck").addEventListener("click", cardOpen);
  document.querySelector(".playAgain").addEventListener("click", function(){document.querySelector(".winPage").className = "winPage closed"; restart()});
  
@@ -19,7 +20,7 @@
 		} else {
 			document.querySelector(".moves").innerText = +document.querySelector(".moves").innerText + 1;
 			/* Hide stars depend of moves count*/
-			if (document.querySelector(".moves").innerText == '12' || document.querySelector(".moves").innerText == '18') {
+			if (document.querySelector(".moves").innerText == '16' || document.querySelector(".moves").innerText == '22') {
 				document.querySelector(".fa-star").parentNode.removeChild(document.querySelector(".fa-star"));
 			}
 			card2 = evt.target.firstElementChild.className;
@@ -53,7 +54,6 @@ function returnStars(){
 
  function restart() {
 	document.querySelector(".moves").innerText = "0";
-    document.querySelector('#timer').innerHTML = "00:00:00";
 	returnStars();
 	
 	let cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
@@ -66,6 +66,7 @@ function returnStars(){
 	}
 	
 	ready = true;
+	stopTimer = true;
  }
  
  function shuffle(array) {
@@ -97,6 +98,14 @@ function timerStart(){
 		  if (minute < 10) minute = '0' + minute;
 		  if (second < 10) second = '0' + second;
 		  document.querySelector('#timer').innerHTML = hour + ':' + minute + ':' + second;
+		  if(stopTimer) {
+			document.querySelector('#timer').innerHTML = "00:00:00";
+			timer = 0;
+			hour = 0;
+			minute = 0;
+			second = 0;
+			return;
+		  }
 		}, 1000);
 	}
 }
