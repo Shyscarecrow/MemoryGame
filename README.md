@@ -17,7 +17,7 @@ that match!
 
 Clone the GitHub repository and open index.html with your favorite browser
 
-####For Windows:
+#### For Windows:
 
 ```
 
@@ -26,7 +26,7 @@ $ start index.html
 
 
 ```
-####For Mac:
+#### For Mac:
 
 ```
 
@@ -36,7 +36,7 @@ $ open index.html
 
 ```
 
-##License
+## License
 
 MIT License
 
