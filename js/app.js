@@ -1,9 +1,8 @@
- let ready = true; 
- /*The first and the second card of each opened pair */
- let card1 = '';
- let card2 = '';
+ let card1 = '';             //The first card of each opened pair
+ let card2 = '';             //The second card of each opened pair
  let card1Parent = '';
  let card2Parent = '';
+ let ready = true;
  let stopTimer = false;
  
  document.querySelector(".restart").addEventListener("click", restart);
@@ -11,20 +10,35 @@
  document.querySelector(".deck").addEventListener("click", cardOpen);
  document.querySelector(".playAgain").addEventListener("click", function(){document.querySelector(".winPage").className = "winPage closed"; restart()});
  
+ 
+ //Open clicked cards and compare it: 
+ 
  function cardOpen(evt) {
 	if (evt.target.className == "card") {
-		evt.target.className += " open show";			
+		evt.target.className += " open show";
+		
+		//Check if the clicked card is the first or a second of a pair:
+		
 		if (!card1) {
 			card1 = evt.target.firstElementChild.className;
 			card1Parent = evt.target;
 		} else {
+			
+			//Increase amount of moves: 
+			
 			document.querySelector(".moves").innerText = +document.querySelector(".moves").innerText + 1;
-			/* Hide stars depend of moves count*/
+			
+			//Hide stars depend of moves count:
+
 			if (document.querySelector(".moves").innerText == '16' || document.querySelector(".moves").innerText == '22') {
 				document.querySelector(".fa-star").parentNode.removeChild(document.querySelector(".fa-star"));
 			}
+			
 			card2 = evt.target.firstElementChild.className;
 			card2Parent = evt.target;
+			
+			//Matching a pair of opened cards: 
+			
 			if (card1 ==card2) {
 				card1Parent.className = "card open show match";
 				card2Parent.className = "card open show match";
@@ -42,7 +56,7 @@
 	}
 }
 
-/* Return stars back to amount of 3 */
+//Returns stars back to amount of 3:
 
 function returnStars(){
 	while (document.getElementsByClassName("fa-star").length != 3) {
@@ -51,6 +65,8 @@ function returnStars(){
 		document.querySelector(".stars").appendChild(newStar);
 	}
 }
+
+//Returns all the card, stars, moves and timer to the start value:
 
  function restart() {
 	document.querySelector(".moves").innerText = "0";
@@ -69,6 +85,8 @@ function returnStars(){
 	stopTimer = true;
  }
  
+ //Shuffle the list of cards:
+ 
  function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -83,6 +101,8 @@ function returnStars(){
     return array;
 }
 
+// Starting and stopping timer:
+ 
 function timerStart(){
 	if (ready == true) {
 		var timer = 0;
@@ -110,10 +130,14 @@ function timerStart(){
 	}
 }
 
-
+ //Show a modal window in case of player win:
+ 
 function win() {
 	document.querySelector(".movesCount").innerText = document.querySelector(".moves").innerText;
 	document.querySelector(".starsCount").innerText = document.getElementsByClassName("fa-star").length;
+	
+	//Collect cards to check if all are open and match:
+	
 	var matchingCards = document.getElementsByClassName('card match open show');
 	if (matchingCards.length == 16) {
 		setTimeout (function() {document.querySelector(".winPage").className = "winPage"}, 1000);
