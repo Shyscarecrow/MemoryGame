@@ -137,6 +137,7 @@ function timerStart(){
 function win() {
 	document.querySelector(".movesCount").innerText = document.querySelector(".moves").innerText;
 	document.querySelector(".starsCount").innerText = document.getElementsByClassName("fa-star").length;
+	document.querySelector(".finalTime").innerText = document.querySelector('#timer').innerHTML;
 	
 	//Collect cards to check if all are open and match:
 	
