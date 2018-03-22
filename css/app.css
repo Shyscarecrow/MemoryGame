@@ -44,7 +44,7 @@ h1 {
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
     padding: 32px;
     border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.8);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -145,11 +145,13 @@ h1 {
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
+	margin-top: 0;
+	transition: 0.7s;
 	
 }
 
 .winPage.closed {
-	display: none;
+	margin-top: -150%;
 }
 
 	
