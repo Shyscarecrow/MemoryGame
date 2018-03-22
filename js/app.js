@@ -69,6 +69,8 @@ function returnStars(){
 //Returns all the card, stars, moves and timer to the start value:
 
  function restart() {
+	 card1= "";
+	 card2= "";
 	document.querySelector(".moves").innerText = "0";
 	returnStars();
 	
